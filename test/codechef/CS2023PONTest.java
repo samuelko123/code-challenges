@@ -2,6 +2,9 @@ package codechef;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -13,13 +16,27 @@ import org.junit.jupiter.api.Test;
 
 class CS2023PONTest {
     @Test
-    void testYes() {
+    void testMain() {
+        var stdin = "2\n6 5\n1 7 3 4 2 13\n3 2\n1 3 4";
+        System.setIn(new ByteArrayInputStream(stdin.getBytes()));
+        var stdout = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(stdout));
+
+        CS2023PON.main(new String[0]);
+
+        assertThat(stdout.toString().trim()).isEqualTo(
+                String.join(System.getProperty("line.separator"), "YES", "NO")
+        );
+    }
+
+    @Test
+    void testCase1() {
         var result = CS2023PON.handleTestCase(List.of(1, 7, 3, 4, 2, 13), 5);
         assertThat(result).isTrue();
     }
 
     @Test
-    void testNo() {
+    void testCase2() {
         var result = CS2023PON.handleTestCase(List.of(1, 3, 4), 2);
         assertThat(result).isFalse();
     }
