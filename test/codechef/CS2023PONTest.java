@@ -17,7 +17,11 @@ import org.junit.jupiter.api.Test;
 class CS2023PONTest {
     @Test
     void testMain() {
-        var stdin = "2\n6 5\n1 7 3 4 2 13\n3 2\n1 3 4";
+        var stdin = String.join(System.getProperty("line.separator"),
+                "2",
+                "6 5", "1 7 3 4 2 13",
+                "3 2", "1 3 4"
+        );
         System.setIn(new ByteArrayInputStream(stdin.getBytes()));
         var stdout = new ByteArrayOutputStream();
         System.setOut(new PrintStream(stdout));
@@ -25,7 +29,10 @@ class CS2023PONTest {
         CS2023PON.main(new String[0]);
 
         assertThat(stdout.toString().trim()).isEqualTo(
-                String.join(System.getProperty("line.separator"), "YES", "NO")
+                String.join(System.getProperty("line.separator"),
+                        "YES",
+                        "NO"
+                )
         );
     }
 
