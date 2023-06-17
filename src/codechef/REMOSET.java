@@ -1,5 +1,6 @@
 package codechef;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -23,6 +24,7 @@ class REMOSET {
                             .collect(Collectors.toList());
 
                     var result = handleTestCase(arr);
+
                     System.out.println(result);
                 });
     }
@@ -34,16 +36,21 @@ class REMOSET {
                 .count();
         var oddCount = arr.size() - evenCount;
 
-        var result = combinationOfSubsequence((int) evenCount);
-        result -= (oddCount == 0 ? 1 : 0);
+        var result = getCountOfPossibleSubsets((int) evenCount)
+                .subtract(BigInteger.valueOf(oddCount == 0 ? 1 : 0));
 
-        return result;
+        return applyMod(result);
     }
 
-    private static int combinationOfSubsequence(int n) {
-        var mod = 1e9 + 7;
-        return IntStream
-                .range(0, n)
-                .reduce(1, (acc, x) -> (int) ((acc * 2) % mod));
+    private static BigInteger getCountOfPossibleSubsets(int arrSize) {
+        return BigInteger
+                .valueOf(2)
+                .pow(arrSize);
+    }
+
+    private static int applyMod(BigInteger num) {
+        return num
+                .mod(BigInteger.valueOf((long) 1e9 + 7))
+                .intValue();
     }
 }

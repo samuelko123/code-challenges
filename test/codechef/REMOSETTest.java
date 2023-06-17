@@ -65,6 +65,19 @@ class REMOSETTest {
         REMOSET.handleTestCase(arr);
         var endTime = Instant.now();
 
+
         assertThat(startTime.until(endTime, ChronoUnit.MILLIS)).isLessThan(1000);
+    }
+
+    @Test
+    void testMod() {
+        var rand = new Random();
+        var arr = Arrays.stream((new Integer[100000]))
+                .map((x) -> Math.abs(rand.nextInt()))
+                .collect(Collectors.toList());
+
+        var result = REMOSET.handleTestCase(arr);
+
+        assertThat(result).isLessThan((int) (1e9 + 7));
     }
 }
